@@ -191,9 +191,6 @@ Le API saranno accessibili su http://localhost:5001.
 
 Ogni agente viene invocato tramite una richiesta POST. Gli agenti possono eseguire compiti separati (come l'elaborazione del linguaggio naturale usando un LLM o qualsiasi altra logica personalizzata) e possono interagire con Matrix tramite i task Celery.
 
-
-Per aggiungere l'interazione tra agenti e l'integrazione con un LLM (ad esempio OpenAI), dobbiamo apportare alcune modifiche al codice precedente. Ecco come puoi farlo.
-
 1. Interazione tra Agenti
 Gli agenti possono comunicare tra loro utilizzando Redis come un sistema di messaggistica. Quando un agente termina un task, può inviare i risultati agli altri agenti per una seconda fase di elaborazione. In questo caso, possiamo utilizzare Redis Pub/Sub o direttamente le code Celery per inviare messaggi tra gli agenti.
 
