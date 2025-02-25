@@ -1,0 +1,44 @@
+services:
+  web:
+    build: .
+    container_name: flask_app
+    command: flask run --host=0.0.0.0 --port=5001 --debug
+    ports:
+      - "5001:5001"
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - MATRIX_HOMESERVER_URL=https://matrix.halleysud.it
+      - MATRIX_USER=@giordana:matrix.halleysud.it
+      - MATRIX_PASSWORD=Giord@n@
+      - MATRIX_ROOM_ID=!NZjipmSSzPqrGSIpEo:matrix.halleysud.it
+    networks:
+      - backend
+
+  redis:
+    image: "redis:latest"
+    container_name: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+
+  celery:
+    build: .
+    container_name: celery_worker
+    command: celery -A app.tasks worker --loglevel=info
+    depends_on:
+      - redis
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+    networks:
+      - backend
+
+networks:
+  backend:
+
+
+
+

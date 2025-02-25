@@ -1,0 +1,6 @@
+Flask
+Celery
+redis
+matrix-nio
+llama-index
+openai
