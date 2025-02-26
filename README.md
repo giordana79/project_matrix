@@ -172,7 +172,7 @@ Gli agenti possono comunicare tra loro utilizzando Redis come un sistema di mess
 
 Ad esempio, se Agent1 termina il suo lavoro e vuole inviare i dati a Agent2, possiamo utilizzare Celery per invocare il task di Agent2:
 
-#2. Modifiche per l'interazione tra agenti con Redis e Celery
+# 2. Modifiche per l'interazione tra agenti con Redis e Celery
 app/tasks.py – Task Celery che invocano gli agenti in sequenza
 
 from app import celery
