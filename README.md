@@ -286,6 +286,9 @@ Avvia i servizi: docker-compose up
 # 7. Test
 Puoi testare la tua app inviando una richiesta POST per invocare uno degli agenti. Ad esempio, per invocare Agent1, puoi usare Postman o curl:
 
+## Per fare la POST da portainer.io 
+http://95.216.187.242:5001/run_agent2
+
 
 curl -X POST http://localhost:5001/run_agent1 -H "Content-Type: application/json" -d '{"data": "Qual è la capitale della Francia?"}'
 Questo avvierà il task di Agent1, che utilizzerà OpenAI per rispondere alla domanda, e invierà i risultati agli altri agenti per l'elaborazione.
