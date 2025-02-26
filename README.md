@@ -113,7 +113,7 @@ async def matrix_login():
         return client
     return None
 ```
-# 8. app/agent1.py, - app/agent2.py, - app/agent3.py, - app/agent4.py
+# 8. app/agent1.py, app/agent2.py, app/agent3.py, app/agent4.py
 Ogni file contiene un agente che esegue una funzione specifica:
 ```
 Esempio per agent1.py
