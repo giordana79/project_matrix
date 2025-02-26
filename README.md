@@ -13,7 +13,7 @@ openai
 # 2. Dockerfile
 Un esempio di Dockerfile per il progetto:
 
-Dockerfile
+```Dockerfile
 FROM python:3.9-slim
 WORKDIR /app
 COPY requirements.txt requirements.txt
