@@ -365,7 +365,7 @@ Se Celery non parte, controlla anche i log di Celery:
 docker logs celery_worker.
 
 ------------------------------------
-## Se con postman invio una POST da errore 404
+## Se con postman si invia una POST e da errore 404
 
 Se Postman restituisce un errore 404 su una richiesta POST, significa che Flask non trova l'endpoint corrispondente. Ecco cosa puoi verificare:
 
