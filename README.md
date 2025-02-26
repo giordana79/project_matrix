@@ -3,14 +3,14 @@ Un esempio completo di una web app Python che gestisce 4 agenti, utilizzando LLM
 # 1. requirements.txt
 Le dipendenze necessarie per il progetto:
 
-Flask
-Celery
-redis
-matrix-nio
-llama-index
-openai
+-Flask
+-Celery
+-redis
+-matrix-nio
+-llama-index
+-openai
 
-# 2. Dockerfile
+2. Dockerfile
 Un esempio di Dockerfile per il progetto:
 
 ```Dockerfile
@@ -22,7 +22,7 @@ COPY . .
 CMD ["python", "app.py"]
 
 
-# 3. docker-compose.yml
+3. docker-compose.yml
 Configura i servizi necessari, inclusi Redis e il web server per Flask:
 
 services:
@@ -47,7 +47,7 @@ services:
     depends_on:
       - redis
 
-# 4. config.py
+4. config.py
 Configura le impostazioni per Flask e Celery:
 
 import os
@@ -58,7 +58,7 @@ import os
     MATRIX_USER = 'user@example.com'
     MATRIX_PASSWORD = 'password'
 
-# 5. app/__init__.py
+5. app/__init__.py
 Inizializza Flask e Celery:
 
 from flask import Flask
@@ -73,7 +73,7 @@ celery.conf.update(app.config)
 
 from app import tasks
 
-# 6. app/tasks.py
+6. app/tasks.py
 Definisce i task Celery per gli agenti:
 
 
@@ -99,7 +99,7 @@ def run_agent3_task(data):
 def run_agent4_task(data):
     return agent4_task(data)
 
-# 7. app/matrix_integration.py
+7. app/matrix_integration.py
 Gestisce l'integrazione con Matrix:
 
 
@@ -115,16 +115,16 @@ async def matrix_login():
         return client
     return None
 
-# 8. app/agent1.py, app/agent2.py, app/agent3.py, app/agent4.py
+8. app/agent1.py, app/agent2.py, app/agent3.py, app/agent4.py
 Ogni file contiene un agente che esegue una funzione specifica:
 
-# Esempio per agent1.py
+Esempio per agent1.py
 def agent1_task(data):
     # Qui puoi integrare un LLM o altre logiche
     response = f"Agent 1 processed data: {data}"
     return response
 
-# 9. app.py
+9. app.py
 File principale che esegue il server Flask e invoca i task Celery:
 
 
@@ -159,19 +159,19 @@ def run_agent4():
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
 
-# 10. Avvio del sistema
+10. Avvio del sistema
 Crea le immagini Docker con docker-compose build.
 Avvia i servizi con docker-compose up.
 Le API saranno accessibili su http://localhost:5001.
 
-## Ogni agente viene invocato tramite una richiesta POST. Gli agenti possono eseguire compiti separati (come l'elaborazione del linguaggio naturale usando un LLM o qualsiasi altra logica personalizzata) e possono interagire con Matrix tramite i task Celery.
+Ogni agente viene invocato tramite una richiesta POST. Gli agenti possono eseguire compiti separati (come l'elaborazione del linguaggio naturale usando un LLM o qualsiasi altra logica personalizzata) e possono interagire con Matrix tramite i task Celery.
 
-# 1. Interazione tra Agenti
+1. Interazione tra Agenti
 Gli agenti possono comunicare tra loro utilizzando Redis come un sistema di messaggistica. Quando un agente termina un task, può inviare i risultati agli altri agenti per una seconda fase di elaborazione. In questo caso, possiamo utilizzare Redis Pub/Sub o direttamente le code Celery per inviare messaggi tra gli agenti.
 
 Ad esempio, se Agent1 termina il suo lavoro e vuole inviare i dati a Agent2, possiamo utilizzare Celery per invocare il task di Agent2:
 
-# 2. Modifiche per l'interazione tra agenti con Redis e Celery
+2. Modifiche per l'interazione tra agenti con Redis e Celery
 app/tasks.py – Task Celery che invocano gli agenti in sequenza
 
 from app import celery
@@ -205,12 +205,12 @@ def run_agent3_task(data):
 def run_agent4_task(data):
     return agent4_task(data)
 
-# 3. Integrazione di OpenAI (LLM)
+3. Integrazione di OpenAI (LLM)
 Ora aggiungiamo l'integrazione con OpenAI per un agente che utilizza un LLM per elaborare il testo. Supponiamo che Agent1 utilizzi OpenAI per generare una risposta a una domanda.
 
 Per fare ciò, dovrai aggiungere la libreria openai al tuo file requirements.txt:
 
-openai
+-openai
 
 Quindi, nel codice di Agent1, possiamo usare OpenAI per generare una risposta:
 
@@ -218,7 +218,7 @@ app/agent1.py – LLM con OpenAI
 
 import openai
 
-# Configurazione di OpenAI
+Configurazione di OpenAI
 openai.api_key = "your-openai-api-key"
 
 def agent1_task(data):
@@ -231,7 +231,7 @@ def agent1_task(data):
     result = response.choices[0].text.strip()
     return result
 
-# 4. Flusso di lavoro completo
+4. Flusso di lavoro completo
 Ora, il flusso di lavoro diventa il seguente:
 
 Agent1 prende i dati (come un prompt), li elabora con OpenAI e genera una risposta.
@@ -240,7 +240,7 @@ Agent3 prende i dati da Agent2 e li elabora.
 Agent4 esegue l'ultimo compito sui dati elaborati.
 Ogni agente invia il proprio risultato al successivo agente tramite il task Celery.
 
-# 5. Flask API con nuovi agenti
+5. Flask API con nuovi agenti
 Aggiungiamo anche il supporto per chiamare la sequenza di agenti tramite API Flask:
 
 app.py – API Flask per invocare gli agenti
@@ -276,37 +276,37 @@ def run_agent4():
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
 
-# 6. Avvio del sistema
+6. Avvio del sistema
 Dopo aver fatto tutte le modifiche, puoi costruire e avviare il sistema con i seguenti comandi:
 
 Costruisci l'immagine Docker: docker-compose build
 Avvia i servizi: docker-compose up
 
-# 7. Test
+7. Test
 Puoi testare la tua app inviando una richiesta POST per invocare uno degli agenti. Ad esempio, per invocare Agent1, puoi usare Postman o curl:
 
-## Per fare la POST da portainer.io 
+Per fare la POST da portainer.io 
 http://95.216.187.242:5001/run_agent2
 
-## curl
+curl
 curl -X POST http://localhost:5001/run_agent1 -H "Content-Type: application/json" -d '{"data": "Qual è la capitale della Francia?"}'
 Questo avvierà il task di Agent1, che utilizzerà OpenAI per rispondere alla domanda, e invierà i risultati agli altri agenti per l'elaborazione.
 
-## ----Alternativa al curl in powershell----
+ ----Alternativa al curl in powershell----
 
 $body = @{ data = "che giorno è oggi" } | ConvertTo-Json -Compress
 Invoke-RestMethod -Uri "http://localhost:5001/run_agent2" -Method Post -Headers @{"Content-Type"="application/json"} -Body $body
 
 
-# Considerazioni finali
+Considerazioni finali
 Flusso di interazione: Ogni agente invia i suoi risultati al successivo tramite Celery. Puoi estendere questo flusso per includere più agenti o logiche complesse.
 Integrazione con Matrix: Gli agenti potrebbero anche inviare i risultati o interagire con utenti attraverso Matrix (ad esempio, inviare risposte o notifiche).
 
 ------------------------------------------------------------------------------------------------------
 
-## Se Celery non riesce a connettersi a Redis. Ecco alcune possibili cause e soluzioni:
+Se Celery non riesce a connettersi a Redis. Ecco alcune possibili cause e soluzioni:
 
-# 1. Redis non è in esecuzione
+1. Redis non è in esecuzione
 Controlla se Redis è attivo con:
 
 redis-cli ping
@@ -318,7 +318,7 @@ oppure, se usi Docker:
 
 docker run -d --name redis -p 6379:6379 redis
 
-# 2. Redis è configurato per accettare solo connessioni locali
+2. Redis è configurato per accettare solo connessioni locali
 Se Redis è in esecuzione ma Celery non riesce a connettersi, controlla la configurazione:
 
 sudo cat /etc/redis/redis.conf | grep bind
@@ -330,7 +330,7 @@ e stai cercando di connetterti da un altro container, dovrai modificare il file 
 
 sudo systemctl restart redis
 
-# 3. Docker e Network Issues
+3. Docker e Network Issues
 Se stai usando Docker Compose e Redis è in un container separato, verifica il nome del servizio: Nel docker-compose.yml, se hai:
 
 services:
@@ -340,7 +340,7 @@ services:
       - "6379:6379"
 Celery deve connettersi usando redis://redis:6379/0 anziché localhost.
 
-# 4. Firewall o SELinux
+4. Firewall o SELinux
 Se hai un firewall attivo, prova a disabilitarlo temporaneamente per testare:
 
 sudo ufw allow 6379
@@ -364,11 +364,11 @@ Se Celery non parte, controlla anche i log di Celery:
 docker logs celery_worker.
 
 ------------------------------------
-## Se con postman si invia una POST e da errore 404
+Se con postman si invia una POST e da errore 404
 
 Se Postman restituisce un errore 404 su una richiesta POST, significa che Flask non trova l'endpoint corrispondente. Ecco cosa puoi verificare:
 
-# 1. Flask sta eseguendo correttamente l'applicazione?
+1. Flask sta eseguendo correttamente l'applicazione?
 Controlla i log del container Flask:
 
 docker logs flask_app
@@ -379,7 +379,7 @@ Puoi anche connetterti direttamente al container ed eseguire:
 docker exec -it flask_app flask routes
 Questo comando elenca tutti gli endpoint disponibili.
 
-# 2. Controlla il tuo codice Flask
+2. Controlla il tuo codice Flask
 Assicurati che la route per la POST sia definita correttamente, ad esempio:
 
 
@@ -401,7 +401,7 @@ L'host è 0.0.0.0 (necessario per funzionare in Docker).
 Modifica
 docker inspect flask_app | grep "IPAddress"
 
-# 4. Stai inviando i dati corretti?
+3. Stai inviando i dati corretti?
 Se l'endpoint si aspetta un JSON, assicurati di inviare la richiesta POST con:
 
 Header → Content-Type: application/json
@@ -412,7 +412,7 @@ json
   "nome": "Mario",
   "età": 30
 }
-5. Controlla i log delle richieste
+4. Controlla i log delle richieste
 
 Nel container Flask, dovresti vedere le richieste in arrivo:
 
