@@ -305,7 +305,9 @@ Se Celery non riesce a connettersi a Redis. Ecco alcune possibili cause e soluzi
 Controlla se Redis è attivo con:
 
 *redis-cli ping*
+
 Se risponde PONG, Redis è attivo. Se no, avvialo con:
+
 - *sudo systemctl start redis*
 
 oppure, se usi Docker:
@@ -315,9 +317,8 @@ oppure, se usi Docker:
 Se Redis è in esecuzione ma Celery non riesce a connettersi, controlla la configurazione:
 
 - *sudo cat /etc/redis/redis.conf | grep bind*
-Se trovi:
-bind 127.0.0.1
-e stai cercando di connetterti da un altro container, dovrai modificare il file /etc/redis/redis.conf e commentare quella linea (# bind 127.0.0.1), poi riavviare Redis:
+  
+Se trovi bind 127.0.0.1 e  stai cercando di connetterti da un altro container, dovrai modificare il file /etc/redis/redis.conf e commentare quella linea (# bind 127.0.0.1), poi riavviare Redis:
 
 - *sudo systemctl restart redis*
 
@@ -341,8 +342,8 @@ Se hai un firewall attivo, prova a disabilitarlo temporaneamente per testare:
 -----------------------------------------------
 L'aggiunta di una rete (networks) garantisce che tutti i container possano comunicare tra loro.
 
-Per la connessione a Redis da fuori Docker (es. *redis-cli -h localhost -p 6379*):
-Passaggi successivi
+Per la connessione a Redis da fuori Docker (es. *redis-cli -h localhost -p 6379*)
+
 Dopo aver aggiornato il file, ricostruisci e riavvia tutto con:
 
 - *docker-compose down && docker-compose up --build*
@@ -369,6 +370,7 @@ Se ci sono errori di importazione o avvio, risolvili prima di testare con Postma
 Puoi anche connetterti direttamente al container ed eseguire:
 
 - *docker exec -it flask_app flask routes*
+  
 Questo comando elenca tutti gli endpoint disponibili.
 
 # 2. Controlla il tuo codice Flask
