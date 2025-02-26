@@ -10,8 +10,7 @@ Le dipendenze necessarie per il progetto:
 - llama-index
 - openai
 
-2. Dockerfile
-   
+# 2. Dockerfile
 Un esempio di Dockerfile per il progetto:
 
 ```Dockerfile
@@ -21,11 +20,11 @@ COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 CMD ["python", "app.py"]
+```
 
-
-3. docker-compose.yml
+# 3. docker-compose.yml
 Configura i servizi necessari, inclusi Redis e il web server per Flask:
-
+```
 services:
   web:
     build: .
@@ -47,7 +46,7 @@ services:
     command: celery -A app.tasks worker --loglevel=info
     depends_on:
       - redis
-
+```
 4. config.py
 Configura le impostazioni per Flask e Celery:
 
