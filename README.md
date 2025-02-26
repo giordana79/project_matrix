@@ -3,12 +3,12 @@ Un esempio completo di una web app Python che gestisce 4 agenti, utilizzando LLM
 # 1. requirements.txt
 Le dipendenze necessarie per il progetto:
 
--Flask
--Celery
--redis
--matrix-nio
--llama-index
--openai
+- Flask
+- Celery
+- redis
+- matrix-nio
+- llama-index
+- openai
 
 2. Dockerfile
 Un esempio di Dockerfile per il progetto:
