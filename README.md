@@ -345,21 +345,15 @@ sudo ufw allow 6379
 sudo systemctl restart redis
 
 -----------------------------------------------
-Aggiunta di una rete (networks)
+L'aggiunta di una rete (networks) garantisce che tutti i container possano comunicare tra loro.
 
-Garantisce che tutti i container possano comunicare tra loro.
-Aggiunta di restart: always a Redis
-
-Redis si riavvia automaticamente se si arresta.
-Esplicita esposizione della porta 6379 di Redis
-
-Se vuoi connetterti a Redis da fuori Docker (es. redis-cli -h localhost -p 6379):
+Per la connessione a Redis da fuori Docker (es. redis-cli -h localhost -p 6379):
 Passaggi successivi
 Dopo aver aggiornato il file, ricostruisci e riavvia tutto con:
 
 docker-compose down && docker-compose up --build
 
-Se hai ancora problemi, prova a controllare i log di Redis con:
+Se si verificano problemi controllare i log di Redis con:
 
 docker logs redis
 
