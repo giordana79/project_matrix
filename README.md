@@ -306,20 +306,20 @@ Controlla se Redis è attivo con:
 
 *redis-cli ping*
 Se risponde PONG, Redis è attivo. Se no, avvialo con:
-*sudo systemctl start redis*
+- *sudo systemctl start redis*
 
 oppure, se usi Docker:
-*docker run -d --name redis -p 6379:6379 redis*
+- *docker run -d --name redis -p 6379:6379 redis*
 
 2. Redis è configurato per accettare solo connessioni locali
 Se Redis è in esecuzione ma Celery non riesce a connettersi, controlla la configurazione:
 
-*sudo cat /etc/redis/redis.conf | grep bind*
+- *sudo cat /etc/redis/redis.conf | grep bind*
 Se trovi:
 bind 127.0.0.1
 e stai cercando di connetterti da un altro container, dovrai modificare il file /etc/redis/redis.conf e commentare quella linea (# bind 127.0.0.1), poi riavviare Redis:
 
-*sudo systemctl restart redis*
+- *sudo systemctl restart redis*
 
 # 3. Docker e Network Issues
 Se stai usando Docker Compose e Redis è in un container separato, verifica il nome del servizio: Nel docker-compose.yml, se hai:
@@ -335,8 +335,8 @@ Celery deve connettersi usando redis://redis:6379/0 anziché localhost.
 # 4. Firewall o SELinux
 Se hai un firewall attivo, prova a disabilitarlo temporaneamente per testare:
 
-*sudo ufw allow 6379*
-*sudo systemctl restart redis*
+- *sudo ufw allow 6379*
+- *sudo systemctl restart redis*
 
 -----------------------------------------------
 L'aggiunta di una rete (networks) garantisce che tutti i container possano comunicare tra loro.
@@ -345,15 +345,15 @@ Per la connessione a Redis da fuori Docker (es. *redis-cli -h localhost -p 6379*
 Passaggi successivi
 Dopo aver aggiornato il file, ricostruisci e riavvia tutto con:
 
-*docker-compose down && docker-compose up --build*
+- *docker-compose down && docker-compose up --build*
 
 Se si verificano problemi controllare i log di Redis con:
 
-*docker logs redis*
+- *docker logs redis*
 
 Se Celery non parte, controlla anche i log di Celery:
 
-*docker logs celery_worker.*
+- *docker logs celery_worker.*
 
 ------------------------------------
 Se con postman si invia una POST e da errore 404
@@ -363,12 +363,12 @@ Se Postman restituisce un errore 404 su una richiesta POST, significa che Flask 
 # 1. Flask sta eseguendo correttamente l'applicazione?
 Controlla i log del container Flask:
 
-*docker logs flask_app*
+- *docker logs flask_app*
 Se ci sono errori di importazione o avvio, risolvili prima di testare con Postman.
 
 Puoi anche connetterti direttamente al container ed eseguire:
 
-*docker exec -it flask_app flask routes*
+- *docker exec -it flask_app flask routes*
 Questo comando elenca tutti gli endpoint disponibili.
 
 # 2. Controlla il tuo codice Flask
@@ -390,7 +390,7 @@ L'host è 0.0.0.0 (necessario per funzionare in Docker).
 
 ## Il metodo è POST e l'endpoint /api/data è definito.
 
-*docker inspect flask_app | grep "IPAddress"*
+- *docker inspect flask_app | grep "IPAddress"*
 
 # 3. Stai inviando i dati corretti?
 Se l'endpoint si aspetta un JSON, assicurati di inviare la richiesta POST con:
@@ -407,6 +407,6 @@ json
 # 4. Controlla i log delle richieste
 Nel container Flask, dovresti vedere le richieste in arrivo:
 
-*docker logs -f flask_app*
+- *docker logs -f flask_app*
 
 
