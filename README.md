@@ -229,11 +229,11 @@ def agent1_task(data):
 # 4. Flusso di lavoro completo
 Ora, il flusso di lavoro diventa il seguente:
 
-*Agent1 prende i dati (come un prompt), li elabora con OpenAI e genera una risposta.
+**Agent1 prende i dati (come un prompt), li elabora con OpenAI e genera una risposta.
 Agent2 prende il risultato di Agent1 e può eseguire un'elaborazione aggiuntiva.
 Agent3 prende i dati da Agent2 e li elabora.
 Agent4 esegue l'ultimo compito sui dati elaborati.
-Ogni agente invia il proprio risultato al successivo agente tramite il task Celery.* 
+Ogni agente invia il proprio risultato al successivo agente tramite il task Celery.**
 
 # 5. Flask API con nuovi agenti
 Aggiungiamo anche il supporto per chiamare la sequenza di agenti tramite API Flask:
@@ -275,7 +275,7 @@ if __name__ == '__main__':
 Dopo aver fatto tutte le modifiche, puoi costruire e avviare il sistema con i seguenti comandi:
 
 Costruisci l'immagine Docker: *docker-compose build*
-Avvia i servizi: *docker-compose up*
+e avvia i servizi: *docker-compose up*
 
 # 7. Test
 Puoi testare la tua app inviando una richiesta POST per invocare uno degli agenti. Ad esempio, per invocare Agent1, puoi usare Postman o curl:
@@ -306,11 +306,9 @@ Controlla se Redis è attivo con:
 
 *redis-cli ping*
 Se risponde PONG, Redis è attivo. Se no, avvialo con:
-
 *sudo systemctl start redis*
 
 oppure, se usi Docker:
-
 *docker run -d --name redis -p 6379:6379 redis*
 
 2. Redis è configurato per accettare solo connessioni locali
@@ -407,7 +405,6 @@ json
 }
 ```
 # 4. Controlla i log delle richieste
-
 Nel container Flask, dovresti vedere le richieste in arrivo:
 
 *docker logs -f flask_app*
