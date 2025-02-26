@@ -164,7 +164,7 @@ if __name__ == '__main__':
 Crea le immagini Docker con docker-compose build.
 Avvia i servizi con docker-compose up.
 Le API saranno accessibili su http://localhost:5001.
-
+`
 Ogni agente viene invocato tramite una richiesta POST. Gli agenti possono eseguire compiti separati (come l'elaborazione del linguaggio naturale usando un LLM o qualsiasi altra logica personalizzata) e possono interagire con Matrix tramite i task Celery.
 
 1. Interazione tra Agenti
