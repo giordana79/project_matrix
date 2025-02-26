@@ -289,7 +289,7 @@ Puoi testare la tua app inviando una richiesta POST per invocare uno degli agent
 ## Per fare la POST da portainer.io 
 http://95.216.187.242:5001/run_agent2
 
-
+## curl
 curl -X POST http://localhost:5001/run_agent1 -H "Content-Type: application/json" -d '{"data": "Qual è la capitale della Francia?"}'
 Questo avvierà il task di Agent1, che utilizzerà OpenAI per rispondere alla domanda, e invierà i risultati agli altri agenti per l'elaborazione.
 
