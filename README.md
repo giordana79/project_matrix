@@ -11,6 +11,7 @@ Le dipendenze necessarie per il progetto:
 - openai
 
 2. Dockerfile
+   
 Un esempio di Dockerfile per il progetto:
 
 ```Dockerfile
