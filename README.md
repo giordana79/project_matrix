@@ -77,7 +77,6 @@ from app import tasks
 6. app/tasks.py
 Definisce i task Celery per gli agenti:
 
-
 from app import celery
 from app.agent1 import agent1_task
 from app.agent2 import agent2_task
@@ -103,7 +102,6 @@ def run_agent4_task(data):
 7. app/matrix_integration.py
 Gestisce l'integrazione con Matrix:
 
-
 from nio import AsyncClient, LoginResponse
 
 async def send_message(client, room_id, message):
@@ -127,7 +125,6 @@ def agent1_task(data):
 
 9. app.py
 File principale che esegue il server Flask e invoca i task Celery:
-
 
 from app import app
 from flask import request, jsonify
@@ -174,7 +171,7 @@ Ad esempio, se Agent1 termina il suo lavoro e vuole inviare i dati a Agent2, pos
 
 2. Modifiche per l'interazione tra agenti con Redis e Celery
 app/tasks.py – Task Celery che invocano gli agenti in sequenza
-
+```
 from app import celery
 from app.agent1 import agent1_task
 from app.agent2 import agent2_task
@@ -205,18 +202,18 @@ def run_agent3_task(data):
 @celery.task
 def run_agent4_task(data):
     return agent4_task(data)
-
+```
 3. Integrazione di OpenAI (LLM)
 Ora aggiungiamo l'integrazione con OpenAI per un agente che utilizza un LLM per elaborare il testo. Supponiamo che Agent1 utilizzi OpenAI per generare una risposta a una domanda.
 
 Per fare ciò, dovrai aggiungere la libreria openai al tuo file requirements.txt:
 
--openai
+- openai
 
 Quindi, nel codice di Agent1, possiamo usare OpenAI per generare una risposta:
 
 app/agent1.py – LLM con OpenAI
-
+```
 import openai
 
 Configurazione di OpenAI
@@ -231,7 +228,7 @@ def agent1_task(data):
     )
     result = response.choices[0].text.strip()
     return result
-
+```
 4. Flusso di lavoro completo
 Ora, il flusso di lavoro diventa il seguente:
 
@@ -245,7 +242,7 @@ Ogni agente invia il proprio risultato al successivo agente tramite il task Cele
 Aggiungiamo anche il supporto per chiamare la sequenza di agenti tramite API Flask:
 
 app.py – API Flask per invocare gli agenti
-
+```
 from app import app
 from flask import request, jsonify
 from app.tasks import run_agent1_task, run_agent2_task, run_agent3_task, run_agent4_task
@@ -276,7 +273,7 @@ def run_agent4():
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
-
+```
 6. Avvio del sistema
 Dopo aver fatto tutte le modifiche, puoi costruire e avviare il sistema con i seguenti comandi:
 
@@ -383,7 +380,7 @@ Questo comando elenca tutti gli endpoint disponibili.
 2. Controlla il tuo codice Flask
 Assicurati che la route per la POST sia definita correttamente, ad esempio:
 
-
+```
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
@@ -396,7 +393,7 @@ def receive_data():
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)
 L'host è 0.0.0.0 (necessario per funzionare in Docker).
-
+```
 ## Il metodo è POST e l'endpoint /api/data è definito.
 
 Modifica
@@ -404,7 +401,7 @@ docker inspect flask_app | grep "IPAddress"
 
 3. Stai inviando i dati corretti?
 Se l'endpoint si aspetta un JSON, assicurati di inviare la richiesta POST con:
-
+```
 Header → Content-Type: application/json
 Body → JSON valido, es.
 json
@@ -413,6 +410,7 @@ json
   "nome": "Mario",
   "età": 30
 }
+```
 4. Controlla i log delle richieste
 
 Nel container Flask, dovresti vedere le richieste in arrivo:
