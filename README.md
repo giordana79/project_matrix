@@ -50,14 +50,13 @@ services:
 # 4. config.py
 Configura le impostazioni per Flask e Celery:
 
-import os
-
-class Config:
-    CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://localhost:6379/0')
-    CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://localhost:6379/0')
-    MATRIX_HOMESERVER_URL = 'https://matrix.org'
-    MATRIX_USER = 'user@example.com'
-    MATRIX_PASSWORD = 'password'
+```import os
+```class Config:
+    ```CELERY_BROKER_URL = os.getenv('CELERY_BROKER_URL', 'redis://localhost:6379/0')
+    ```CELERY_RESULT_BACKEND = os.getenv('CELERY_RESULT_BACKEND', 'redis://localhost:6379/0')
+    ```MATRIX_HOMESERVER_URL = 'https://matrix.org'
+    ```MATRIX_USER = 'user@example.com'
+    ```MATRIX_PASSWORD = 'password'
 
 # 5. app/__init__.py
 Inizializza Flask e Celery:
