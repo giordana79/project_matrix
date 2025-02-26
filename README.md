@@ -1,4 +1,4 @@
-Ecco un esempio completo di una web app Python che gestisce 4 agenti, utilizzando LLM (Large Language Model), Celery, Redis e Matrix. L'app è composta da diverse parti: il server Flask, gli agenti Celery, la gestione di Redis per la coda dei task, e l'integrazione con Matrix.
+Un esempio completo di una web app Python che gestisce 4 agenti, utilizzando LLM (Large Language Model), Celery, Redis e Matrix. L'app è composta da diverse parti: il server Flask, gli agenti Celery, la gestione di Redis per la coda dei task, e l'integrazione con Matrix.
 
 # 1. requirements.txt
 Le dipendenze necessarie per il progetto:
