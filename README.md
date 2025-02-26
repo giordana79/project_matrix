@@ -2,7 +2,6 @@ Un esempio completo di una web app Python che gestisce 4 agenti, utilizzando LLM
 
 # 1. requirements.txt
 Le dipendenze necessarie per il progetto:
-
 Flask
 Celery
 redis
@@ -13,7 +12,7 @@ openai
 # 2. Dockerfile
 Un esempio di Dockerfile per il progetto:
 
-Dockerfile
+### Dockerfile
 FROM python:3.9-slim
 WORKDIR /app
 COPY requirements.txt requirements.txt
@@ -62,21 +61,20 @@ class Config:
 # 5. app/__init__.py
 Inizializza Flask e Celery:
 
-from flask import Flask
-from celery import Celery
-from config import Config
+```from flask import Flask
+```from celery import Celery
+```from config import Config
 
-app = Flask(__name__)
-app.config.from_object(Config)
+```app = Flask(__name__)
+```app.config.from_object(Config)
 
-celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
-celery.conf.update(app.config)
+```celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
+```celery.conf.update(app.config)
 
-from app import tasks
+```from app import tasks
 
 # 6. app/tasks.py
 Definisce i task Celery per gli agenti:
-
 
 from app import celery
 from app.agent1 import agent1_task
