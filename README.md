@@ -387,7 +387,7 @@ def receive_data():
     return jsonify({"message": "Dati ricevuti", "data": data}), 200
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host="0.0.0.0", port=5001, debug=True)
 ```
 L'host è 0.0.0.0 (necessario per funzionare in Docker).
 
