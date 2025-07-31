@@ -9,10 +9,10 @@ services:
       - redis
     environment:
       - CELERY_BROKER_URL=redis://redis:6379/0
-      - MATRIX_HOMESERVER_URL=https://matrix.halleysud.it
-      - MATRIX_USER=@giordana:matrix.halleysud.it
-      - MATRIX_PASSWORD=Giord@n@
-      - MATRIX_ROOM_ID=!NZjipmSSzPqrGSIpEo:matrix.halleysud.it
+      - MATRIX_HOMESERVER_URL=https://matrix.sito.it
+      - MATRIX_USER=@giordana:matrix.sito.it
+      - MATRIX_PASSWORD=xxxxxxxxx
+      - MATRIX_ROOM_ID=xxxxxxxxx:matrix.sito.it
     networks:
       - backend
 
